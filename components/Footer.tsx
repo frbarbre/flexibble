@@ -37,8 +37,8 @@ function FooterColumn({ title, links }: ColumnProps) {
 }
 
 export default async function Footer() {
-  const data = (await fetchAllProjects()) as ProjectSearch;
-  const projectsToDisplay = data?.projectSearch?.edges || [];
+  // const data = (await fetchAllProjects()) as ProjectSearch;
+  // const projectsToDisplay = data?.projectSearch?.edges || [];
 
   return (
     <footer className="footer FlexStart">
@@ -95,9 +95,11 @@ export default async function Footer() {
         <p>@ 2023 Flexibble. All rights reserved</p>
         <p className="text-gray">
           <span className="text-black font-semibold">
-            {projectsToDisplay.length}
+            {/* {projectsToDisplay.length} */}10.025
           </span>{" "}
-          project{projectsToDisplay.length === 1 ? "" : "s"} submitted
+          projects
+          {/* {projectsToDisplay.length === 1 ? "" : "s"}  */}
+          submitted
         </p>
       </div>
     </footer>
