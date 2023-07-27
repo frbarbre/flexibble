@@ -1,10 +1,24 @@
+import { ProjectInterface } from "@/common.types";
 import { footerLinks } from "@/constants";
+import { fetchAllProjects } from "@/lib/actions";
 import Image from "next/image";
 import Link from "next/link";
 
 type ColumnProps = {
   title: String;
   links: Array<string>;
+};
+
+type ProjectSearch = {
+  projectSearch: {
+    edges: { node: ProjectInterface }[];
+    pageInfo: {
+      hasPreviousPage: boolean;
+      hasNextPage: boolean;
+      startCursor: string;
+      endCursor: string;
+    };
+  };
 };
 
 function FooterColumn({ title, links }: ColumnProps) {
@@ -22,7 +36,10 @@ function FooterColumn({ title, links }: ColumnProps) {
   );
 }
 
-export default function Footer() {
+export default async function Footer() {
+  const data = (await fetchAllProjects()) as ProjectSearch;
+  const projectsToDisplay = data?.projectSearch?.edges || [];
+
   return (
     <footer className="footer FlexStart">
       <div className="flex flex-col gap-12 w-full">
@@ -77,8 +94,10 @@ export default function Footer() {
       <div className="flexBetween footer_copyright">
         <p>@ 2023 Flexibble. All rights reserved</p>
         <p className="text-gray">
-          <span className="text-black font-semibold">10,214</span> projects
-          submitted
+          <span className="text-black font-semibold">
+            {projectsToDisplay.length}
+          </span>{" "}
+          project{projectsToDisplay.length === 1 ? "" : "s"} submitted
         </p>
       </div>
     </footer>

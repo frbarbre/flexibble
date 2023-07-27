@@ -92,7 +92,7 @@ body {
 }
 
 .custom_menu-items {
-  @apply flex-col absolute left-0 mt-2 xs:min-w-[300px] w-fit max-h-64 origin-top-right rounded-xl bg-white border border-nav-border shadow-menu overflow-y-auto;
+  @apply flex-col absolute shadow-2xl left-0 mt-2 xs:min-w-[300px] w-fit max-h-64 origin-top-right rounded-xl bg-white border border-nav-border overflow-y-auto;
 }
 
 .custom_menu-item {
@@ -123,7 +123,7 @@ body {
 }
 
 .modal_wrapper {
-  @apply flex justify-start items-center flex-col absolute h-[95%] w-full bottom-0 bg-white rounded-t-3xl lg:px-40 px-8 pt-14 pb-72 overflow-auto;
+  @apply flex justify-start items-center flex-col absolute h-[90%] w-full bottom-0 bg-white rounded-t-3xl lg:px-40 px-8 pt-14 pb-72 overflow-auto;
 }
 
 /* Navbar */
@@ -133,7 +133,7 @@ body {
 
 /* Profile Menu */
 .profile_menu-items {
-  @apply flex-col absolute right-1/2 translate-x-1/2 mt-3 p-7 sm:min-w-[300px] min-w-max rounded-xl bg-white border border-nav-border shadow-menu;
+  @apply flex-col absolute right-1/2 translate-x-1/2 mt-3 p-7 sm:min-w-[300px] min-w-max rounded-xl bg-white border border-nav-border;
 }
 
 /* Profile Card */
