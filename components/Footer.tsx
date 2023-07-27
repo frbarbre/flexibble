@@ -9,17 +9,6 @@ type ColumnProps = {
   links: Array<string>;
 };
 
-type ProjectSearch = {
-  projectSearch: {
-    edges: { node: ProjectInterface }[];
-    pageInfo: {
-      hasPreviousPage: boolean;
-      hasNextPage: boolean;
-      startCursor: string;
-      endCursor: string;
-    };
-  };
-};
 
 function FooterColumn({ title, links }: ColumnProps) {
   return (
