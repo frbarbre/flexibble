@@ -99,7 +99,10 @@ export async function createNewProject(
   }
 }
 
-export async function fetchAllProjects(category?: string, endcursor?: string) {
+export async function fetchAllProjects(
+  category?: string | null,
+  endcursor?: string | null
+) {
   client.setHeader("x-api-key", apiKey);
 
   return makeGraphQLRequest(projectsQuery, { category, endcursor });
