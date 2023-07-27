@@ -107,7 +107,7 @@ export const fetchAllProjects = async (
 ) => {
   client.setHeader("x-api-key", apiKey);
 
-  if (category === "all") {
+  if (category === "") {
     return makeGraphQLRequest(projectsQueryAll);
   }
 
