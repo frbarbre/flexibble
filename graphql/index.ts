@@ -54,22 +54,22 @@ export const projectsQuery = `
 
 export const projectsQueryAll = `
   query getProjects() {
-    projectSearch(first: 50) {
+    projectCollection(last: 100) {
       edges {
-        node {
-          title
-          githubUrl
-          description
-          liveSiteUrl
-          id
-          image
-          category
-          createdBy {
+       node {
+            title
+            githubUrl
+            description
+            liveSiteUrl
             id
-            email
-            name
-            avatarUrl
-          }
+            image
+            category
+            createdBy {
+              id
+              email
+              name
+              avatarUrl
+            }
         }
       }
     }
