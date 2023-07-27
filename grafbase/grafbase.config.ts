@@ -40,8 +40,7 @@ const Project = g
     createdBy: g.relation(() => User),
   })
   .auth((rules) => {
-    rules.public().read(),
-    rules.private().create().delete().update();
+    rules.public().read(), rules.private().create().delete().update();
   });
 
 const jwt = auth.JWT({
