@@ -3,9 +3,9 @@ import Image from "next/image";
 import { NavLinks } from "@/constants";
 import AuthProviders from "./AuthProviders";
 import { getCurrentUser } from "@/lib/session";
-import { signOut } from "next-auth/react";
 import ProfileMenu from "./ProfileMenu";
 import Button from "./Button";
+import NavLink from "./Navlink";
 
 export default async function Navbar() {
   const session = await getCurrentUser();
@@ -18,10 +18,13 @@ export default async function Navbar() {
         </Link>
 
         <ul className="xl:flex hidden text-small gap-7">
-          {NavLinks.map((link) => (
-            <Link href={link.href} key={link.key}>
-              {link.text}
-            </Link>
+          {NavLinks.map((link, index) => (
+            <NavLink
+              key={link.key}
+              text={link.text}
+              href={link.href}
+              index={index}
+            />
           ))}
         </ul>
       </div>

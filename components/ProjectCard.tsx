@@ -48,7 +48,7 @@ export default function ProjectCard({
     <div className="flexCenter flex-col rounded-2xl drop-shadow-card">
       <Link
         href={`/project/${id}`}
-        className="flexCenter group relative w-full h-full"
+        className="flexCenter group transition-all relative w-full h-full"
       >
         <Image
           src={image}
@@ -58,7 +58,7 @@ export default function ProjectCard({
           className="w-full h-full md:aspect-[13/10] object-cover rounded-2xl"
         />
 
-        <div className="hidden group-hover:flex profile_card-title">
+        <div className="hidden transition-all group-hover:flex profile_card-title">
           <p className="w-full">{title}</p>
         </div>
       </Link>

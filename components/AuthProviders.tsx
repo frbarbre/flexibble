@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { getProviders, signIn } from "next-auth/react";
 import { nanoid } from "nanoid";
 import Button from "./Button";
+import { motion as m } from "framer-motion";
 
 type Provider = {
   id: string;
@@ -33,7 +34,7 @@ export default function AuthProviders() {
 
   if (providers) {
     return (
-      <div>
+      <m.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
         {Object.values(providers).map((provider: Provider) => (
           <Button
             handleClick={() => signIn(provider?.id)}
@@ -41,7 +42,7 @@ export default function AuthProviders() {
             key={nanoid()}
           />
         ))}
-      </div>
+      </m.div>
     );
   }
 }

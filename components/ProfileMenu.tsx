@@ -5,7 +5,7 @@ import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-
+import { motion as m } from "framer-motion";
 import { SessionInterface } from "@/common.types";
 
 export default function ProfileMenu({
@@ -16,7 +16,12 @@ export default function ProfileMenu({
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <div className="flexCenter z-10 flex-col relative">
+    <m.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.2 }}
+      className="flexCenter z-10 flex-col relative"
+    >
       <Menu as="div">
         <Menu.Button
           className="flexCenter"
@@ -102,6 +107,6 @@ export default function ProfileMenu({
           </Menu.Items>
         </Transition>
       </Menu>
-    </div>
+    </m.div>
   );
 }
