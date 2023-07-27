@@ -22,7 +22,8 @@ const apiKey = isProduction
   ? process.env.NEXT_PUBLIC_GRAFBASE_API_KEY || ""
   : "1234567890";
 const serverUrl = isProduction
-  ? process.env.NEXT_PUBLIC_SERVER_URL
+  ? // ? process.env.NEXT_PUBLIC_SERVER_URL
+    "https://flexibble-frbarbre.vercel.app"
   : "http://localhost:3000";
 
 const client = new GraphQLClient(apiUrl);
@@ -98,7 +99,10 @@ export const createNewProject = async (
   }
 };
 
-export const fetchAllProjects = async (category?: string | null, endcursor?: string | null) => {
+export const fetchAllProjects = async (
+  category?: string | null,
+  endcursor?: string | null
+) => {
   client.setHeader("x-api-key", apiKey);
 
   if (category === "all") {
