@@ -19,8 +19,10 @@ const apiUrl = isProduction
   ? process.env.NEXT_PUBLIC_GRAFBASE_API_URL || ""
   : "http://127.0.0.1:4000/graphql";
 const apiKey = isProduction
-  ? process.env.NEXT_PUBLIC_GRAFBASE_API_KEY || ""
-  : "1234567890";
+  ? "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTAzMDExMzAsImlzcyI6ImdyYWZiYXNlIiwiYXVkIjoiMDFINjZXUlBORDVXNk5OVlgxUTNZOVFNUjgiLCJqdGkiOiIwMUg2NldSU01SUDJSVDA3WU44VjFNNVRZWiIsImVudiI6InByb2R1Y3Rpb24iLCJwdXJwb3NlIjoicHJvamVjdC1hcGkta2V5In0.KyuxnQIl0jsLNPrDBAjgzhCeoJjauz8n_Xtrx7Ln29U" ||
+    ""
+  : // ? process.env.NEXT_PUBLIC_GRAFBASE_API_KEY || ""
+    "1234567890";
 const serverUrl = isProduction
   ? // ? process.env.NEXT_PUBLIC_SERVER_URL
     "https://flexibble-frbarbre.vercel.app"
