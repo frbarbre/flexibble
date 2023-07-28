@@ -1,5 +1,6 @@
 import { UserProfile, ProjectInterface } from "@/common.types";
 import { getUserProjects } from "@/lib/actions";
+import { nanoid } from "nanoid";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -30,7 +31,7 @@ export default async function RelatedProjects({ projectId, userId }: Props) {
       </div>
       <div className="related_projects-grid">
         {filteredProjects?.map(({ node }: { node: ProjectInterface }) => (
-          <div className="flexCenter related_project-card drop-shadow-card">
+          <div key={nanoid()} className="flexCenter related_project-card drop-shadow-card">
             <Link
               href={`/project/${node?.id}`}
               className="flexCenter group relative w-full h-full"
