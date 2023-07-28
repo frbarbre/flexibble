@@ -54,7 +54,7 @@ export const projectsQuery = `
 
 export const projectsQueryAll = `
   query getProjects() {
-    projectCollection(first: 50) {
+    projectSearch(first: 50) {
       edges {
         node {
           title
