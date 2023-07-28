@@ -7,8 +7,14 @@ import Modal from "@/components/Modal";
 import ProjectActions from "@/components/ProjectActions";
 import RelatedProjects from "@/components/RelatedProjects";
 import { ProjectInterface } from "@/common.types";
+import ProjectInformation from "@/components/ProjectInformation";
+import Poster from "@/components/Poster";
 
-const Project = async ({ params: { id } }: { params: { id: string } }) => {
+export default async function Project({
+  params: { id },
+}: {
+  params: { id: string };
+}) {
   const session = await getCurrentUser();
   const result = (await getProjectDetails(id)) as {
     project?: ProjectInterface;
@@ -19,38 +25,15 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
 
   const projectDetails = result?.project;
 
-  const renderLink = () => `/profile/${projectDetails?.createdBy?.id}`;
+  const renderLink = `/profile/${projectDetails?.createdBy?.id}`;
 
   return (
     <Modal>
       <section className="flexBetween gap-y-8 max-w-4xl max-xs:flex-col w-full">
-        <div className="flex-1 flex items-start gap-5 w-full max-xs:flex-col">
-          <Link href={renderLink()}>
-            <Image
-              src={projectDetails?.createdBy?.avatarUrl}
-              width={50}
-              height={50}
-              alt="profile"
-              className="rounded-full"
-            />
-          </Link>
-
-          <div className="flex-1 flexStart flex-col gap-1">
-            <p className="self-start text-lg font-semibold">
-              {projectDetails?.title}
-            </p>
-            <div className="user-info">
-              <Link href={renderLink()}>{projectDetails?.createdBy?.name}</Link>
-              <Image src="/dot.svg" width={4} height={4} alt="dot" />
-              <Link
-                href={`/?category=${projectDetails.category}`}
-                className="text-primary-purple font-semibold"
-              >
-                {projectDetails?.category}
-              </Link>
-            </div>
-          </div>
-        </div>
+        <ProjectInformation
+          renderLink={renderLink}
+          projectDetails={projectDetails}
+        />
 
         {session?.user?.email === projectDetails?.createdBy?.email && (
           <div className="flex justify-end items-center gap-2">
@@ -60,13 +43,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
       </section>
 
       <section className="mt-14">
-        <Image
-          src={`${projectDetails?.image}`}
-          className="object-cover rounded-2xl"
-          width={1064}
-          height={798}
-          alt="poster"
-        />
+        <Poster projectDetails={projectDetails} />
       </section>
 
       <section className="flexCenter flex-col mt-20">
@@ -97,7 +74,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
 
       <section className="flexCenter w-full gap-8 mt-28">
         <span className="w-full h-0.5 bg-light-white-200" />
-        <Link href={renderLink()} className="min-w-[82px] h-[82px]">
+        <Link href={renderLink} className="min-w-[82px] h-[82px]">
           <Image
             src={projectDetails?.createdBy?.avatarUrl}
             className="rounded-full"
@@ -115,6 +92,4 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
       />
     </Modal>
   );
-};
-
-export default Project;
+}

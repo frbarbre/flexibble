@@ -26,8 +26,8 @@ const ProfilePage = ({ user }: Props) => {
 
   return (
     <section className="flexCenter flex-col max-w-10xl w-full mx-auto paddings">
-      <section className="flexBetween max-lg:flex-col gap-10 w-full">
-        <div className="flex items-start flex-col w-full">
+      <section className="flex items-center max-lg:flex-col gap-10 w-full">
+        <div className="flex items-start flex-col lg:w-max w-full max-w-[739px]">
           <m.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}

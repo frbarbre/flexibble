@@ -64,7 +64,12 @@ export default function ProfileMenu({
                   alt="profile Image"
                 />
               )}
-              <p className="font-semibold">{session?.user?.name}</p>
+              <div className="text-center flex flex-col gap-1">
+                <p className="font-semibold">{session?.user?.name}</p>
+                <p className="font-normal text-gray/50">
+                  {session?.user?.email}
+                </p>
+              </div>
             </div>
 
             <div className="flex flex-col gap-3 pt-10 items-start w-full">
