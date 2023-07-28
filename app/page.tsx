@@ -111,7 +111,15 @@ const Home = async ({ searchParams: { category, endcursor } }: Props) => {
 
   const data = (await fetchAllProjects(currentCatagory, endcursor)) as ProjectSearch;
 
-  const projectsToDisplay = data?.projectSearch?.edges.reverse() || [];
+  const projectsToDisplay = data?.projectSearch?.edges.sort(function(a,b) {
+    if(a.node?.updatedAt > b.node?.updatedAt) {
+      return -1
+    }
+    if(a.node?.updatedAt < b.node?.updatedAt) {
+      return 1
+    }
+    return 0
+  }) || [];
 
   if (projectsToDisplay.length === 0) {
     return (

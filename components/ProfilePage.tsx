@@ -13,6 +13,16 @@ type Props = {
 
 const ProfilePage = ({ user }: Props) => {
   const projects = user?.projects?.edges
+  
+  const sortedArray = projects.sort(function (a, b) {
+    if (a.node.updatedAt > b.node.updatedAt) {
+      return -1;
+    }
+    if (a.node.updatedAt < b.node.updatedAt) {
+      return 1;
+    }
+    return 0;
+  });
 
   return (
     <section className="flexCenter flex-col max-w-10xl w-full mx-auto paddings">
@@ -62,20 +72,21 @@ const ProfilePage = ({ user }: Props) => {
           </div>
         </div>
 
-        {projects.length > 0 ? (
+        {sortedArray.length > 0 ? (
           <m.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", duration: 0.4 }}
           >
-            <Link href={`/project/${projects[0]?.node?.id}`}>
+            <Link href={`/project/${sortedArray[0]?.node?.id}`}>
               <Image
-                src={projects[0]?.node?.image}
+                src={sortedArray[0]?.node?.image}
                 alt="project image"
                 width={739}
                 height={554}
                 className="rounded-xl object-contain"
               />
+              <p>{sortedArray[0]?.node?.createdBy?.updatedAt}</p>
             </Link>
           </m.div>
         ) : (
@@ -99,7 +110,7 @@ const ProfilePage = ({ user }: Props) => {
         <p className="w-full text-left text-lg font-semibold">Recent Work</p>
 
         <div className="profile_projects">
-          {projects.map(
+          {sortedArray.map(
             ({ node }: { node: ProjectInterface }, index: number) => (
               <ProjectCard
                 key={`${node?.id}`}

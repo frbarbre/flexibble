@@ -17,7 +17,9 @@ export interface ProjectInterface {
   githubUrl: string;
   category: string;
   id: string;
+  updatedAt: string;
   createdBy: {
+    updatedAt: string;
     name: string;
     email: string;
     avatarUrl: string;
@@ -33,6 +35,7 @@ export interface UserProfile {
   avatarUrl: string;
   githubUrl: string | null;
   linkedInUrl: string | null;
+  updatedAt: string;
   projects: {
     edges: { node: ProjectInterface }[];
     pageInfo: {
@@ -50,6 +53,7 @@ export interface SessionInterface extends Session {
     name: string;
     email: string;
     avatarUrl: string;
+    updatedAt: string;
   };
 }
 

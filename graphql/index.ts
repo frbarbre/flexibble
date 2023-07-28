@@ -40,6 +40,7 @@ export const projectsQuery = `
           id
           image
           category
+          updatedAt
           createdBy {
             id
             email
@@ -64,6 +65,7 @@ export const projectsQueryAll = `
           id
           image
           category
+          updatedAt
           createdBy {
             id
             email
@@ -86,6 +88,7 @@ export const getProjectByIdQuery = `
       liveSiteUrl
       githubUrl
       category
+      updatedAt
       createdBy {
         id
         name
@@ -152,6 +155,7 @@ export const getProjectsOfUserQuery = `
             id
             title
             image
+            updatedAt
           }
         }
       }
