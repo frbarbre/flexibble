@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { motion as m } from "framer-motion";
 
 type Props = {
   id: string;
@@ -11,6 +12,7 @@ type Props = {
   name: string;
   avatarUrl: string;
   userId: string;
+  index: number;
 };
 
 export default function ProjectCard({
@@ -20,6 +22,7 @@ export default function ProjectCard({
   name,
   avatarUrl,
   userId,
+  index,
 }: Props) {
   const [randomLikes, setRandomLikes] = useState(0);
   const [randomViews, setRandomViews] = useState("");
@@ -45,7 +48,12 @@ export default function ProjectCard({
   }
 
   return (
-    <div className="flexCenter flex-col rounded-2xl drop-shadow-card">
+    <m.div
+      initial={{ opacity: 0, y: -50, scale: 0 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay: index * 0.2 + 0.3, duration: 0.4, type: "spring" }}
+      className="flexCenter flex-col rounded-2xl drop-shadow-card"
+    >
       <Link
         href={`/project/${id}`}
         className="flexCenter group transition-all relative w-full h-full"
@@ -88,6 +96,6 @@ export default function ProjectCard({
           </div>
         </div>
       </div>
-    </div>
+    </m.div>
   );
 }

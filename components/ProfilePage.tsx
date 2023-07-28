@@ -1,74 +1,122 @@
-import { ProjectInterface, UserProfile } from '@/common.types'
-import Image from 'next/image'
+"use client";
 
-import Link from 'next/link'
+import { ProjectInterface, UserProfile } from "@/common.types";
+import Image from "next/image";
+import Link from "next/link";
 import Button from "./Button";
-import ProjectCard from './ProjectCard';
+import ProjectCard from "./ProjectCard";
+import { motion as m } from "framer-motion";
 
 type Props = {
-    user: UserProfile;
-}
+  user: UserProfile;
+};
 
-const ProfilePage = ({ user }: Props) => (
-    <section className='flexCenter flex-col max-w-10xl w-full mx-auto paddings'>
-        <section className="flexBetween max-lg:flex-col gap-10 w-full">
-            <div className='flex items-start flex-col w-full'>
-                <Image src={user?.avatarUrl} width={100} height={100} className="rounded-full" alt="user image" />
-                <p className="text-4xl font-bold mt-10">{user?.name}</p>
-                <p className="md:text-5xl text-3xl font-extrabold md:mt-10 mt-5 max-w-lg">Check out my Projects!⭐</p>
-                
-                <div className="flex mt-8 gap-5 w-full flex-wrap">
-                    <Button 
-                        title="Follow" 
-                        leftIcon="/plus-round.svg" 
-                        bgColor="bg-light-white-400 !w-max" 
-                        textColor="text-black-100" 
-                    />
-                    <Link href={`mailto:${user?.email}`}>
-                        <Button title="Hire Me" leftIcon="/email.svg" />
-                    </Link>
-                </div>
-            </div>
+const ProfilePage = ({ user }: Props) => {
+  const projects = user?.projects?.edges
 
-            {user?.projects?.edges?.length > 0 ? (
-                <Image
-                    src={user?.projects?.edges[0]?.node?.image}
-                    alt="project image"
-                    width={739}
-                    height={554}
-                    className='rounded-xl object-contain'
-                />
-            ) : (
-                <Image
-                    src="/profile-post.png"
-                    width={739}
-                    height={554}
-                    alt="project image"
-                    className='rounded-xl'
-                />
-            )}
-       </section>
+  return (
+    <section className="flexCenter flex-col max-w-10xl w-full mx-auto paddings">
+      <section className="flexBetween max-lg:flex-col gap-10 w-full">
+        <div className="flex items-start flex-col w-full">
+          <m.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <Image
+              src={user?.avatarUrl}
+              width={100}
+              height={100}
+              className="rounded-full"
+              alt="user image"
+            />
+          </m.div>
+          <m.p
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl font-bold mt-10"
+          >
+            {user?.name}
+          </m.p>
+          <m.p
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="md:text-5xl text-3xl font-extrabold md:mt-10 mt-5 max-w-lg"
+          >
+            Check out my Projects!⭐
+          </m.p>
 
-       <section className="flexStart flex-col lg:mt-28 mt-16 w-full">
-           <p className="w-full text-left text-lg font-semibold">Recent Work</p>
-           
-           <div className="profile_projects">
-                {user?.projects?.edges?.map(
-                    ({ node }: { node: ProjectInterface }) => (
-                        <ProjectCard
-                            key={`${node?.id}`}
-                            id={node?.id}
-                            image={node?.image}
-                            title={node?.title}
-                            name={user.name}
-                            avatarUrl={user.avatarUrl}
-                            userId={user.id}
-                        />
-                    )
-                )}
-            </div>
-       </section>
-   </section>
-)
+          <div className="flex mt-8 gap-5 w-full flex-wrap">
+            <Button
+              title="Follow"
+              leftIcon="/plus-round.svg"
+              bgColor="bg-light-white-400 !w-max"
+              textColor="text-black-100"
+              hoverColor="hover:bg-light-white-400/70"
+              delay={0.3}
+            />
+            <Link href={`mailto:${user?.email}`}>
+              <Button title="Hire Me" leftIcon="/email.svg" delay={0.4} />
+            </Link>
+          </div>
+        </div>
 
-export default ProfilePage
+        {projects.length > 0 ? (
+          <m.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", duration: 0.4 }}
+          >
+            <Link href={`/project/${projects[0]?.node?.id}`}>
+              <Image
+                src={projects[0]?.node?.image}
+                alt="project image"
+                width={739}
+                height={554}
+                className="rounded-xl object-contain"
+              />
+            </Link>
+          </m.div>
+        ) : (
+          <m.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", duration: 0.4, delay: 0.2 }}
+          >
+            <Image
+              src="/profile-post.png"
+              width={739}
+              height={554}
+              alt="project image"
+              className="rounded-xl"
+            />
+          </m.div>
+        )}
+      </section>
+
+      <section className="flexStart flex-col lg:mt-28 mt-16 w-full">
+        <p className="w-full text-left text-lg font-semibold">Recent Work</p>
+
+        <div className="profile_projects">
+          {projects.map(
+            ({ node }: { node: ProjectInterface }, index: number) => (
+              <ProjectCard
+                key={`${node?.id}`}
+                id={node?.id}
+                image={node?.image}
+                title={node?.title}
+                name={user.name}
+                avatarUrl={user.avatarUrl}
+                userId={user.id}
+                index={index}
+              />
+            )
+          )}
+        </div>
+      </section>
+    </section>
+  );
+};
+
+export default ProfilePage;

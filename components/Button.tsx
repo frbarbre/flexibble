@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { MouseEventHandler } from "react";
 import Image from "next/image";
@@ -13,6 +13,8 @@ type Props = {
   type?: "button" | "submit";
   bgColor?: string;
   textColor?: string;
+  hoverColor?: string;
+  delay?: number;
 };
 
 export default function Button({
@@ -24,19 +26,34 @@ export default function Button({
   handleClick,
   textColor,
   bgColor,
+  hoverColor,
+  delay,
 }: Props) {
   return (
     <m.button
-      initial={{ opacity: 0, x: 20 }}
+      initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: delay || 0 }}
       type={type || "button"}
       disabled={isSubmitting}
-      className={`flexCenter gap-3 px-4 py-3 rounded-xl text-sm font-medium max-md:w-full 
+      className={`flexCenter gap-3 px-4 py-3 rounded-xl text-sm font-medium max-md:w-full
       ${isSubmitting ? "bg-black/50" : bgColor || "bg-primary-purple"}
-      ${textColor || "text-white"}`}
+      ${textColor || "text-white"}
+      ${isSubmitting ? "cursor-not-allowed" : hoverColor || "hover:bg-primary-purple/70"}`}
       onClick={handleClick}
     >
-      {leftIcon && <Image src={leftIcon} width={14} height={14} alt="left" />}
+      {leftIcon && !isSubmitting && (
+        <Image src={leftIcon} width={14} height={14} alt="left" />
+      )}
+      {isSubmitting && (
+        <m.div
+          initial={{ rotate: 0 }}
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        >
+          <Image src={"/loading.png"} width={14} height={14} alt="left" />
+        </m.div>
+      )}
       {rightIcon && (
         <Image src={rightIcon} width={14} height={14} alt="right" />
       )}

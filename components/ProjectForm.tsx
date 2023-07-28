@@ -9,6 +9,7 @@ import CustomMenu from "./CustomMenu";
 import Button from "./Button";
 import { createNewProject, fetchToken, updateProject } from "@/lib/actions";
 import { useRouter } from "next/navigation";
+import { motion as m } from "framer-motion";
 
 type Props = {
   type: string;
@@ -33,11 +34,11 @@ export default function ProjectForm({ type, session, project }: Props) {
         router.push("/");
         router.refresh();
       }
-      if(type === "edit") {
-        await updateProject(form, project?.id as string, token)
+      if (type === "edit") {
+        await updateProject(form, project?.id as string, token);
 
-        router.push("/")
-        router.refresh()
+        router.push("/");
+        router.refresh();
       }
     } catch (error) {
       console.log(error);
@@ -84,7 +85,13 @@ export default function ProjectForm({ type, session, project }: Props) {
   });
 
   return (
-    <form onSubmit={handleFormSubmit} className="flexStart form">
+    <m.form
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{delay: 0.5}}
+      onSubmit={handleFormSubmit}
+      className="flexStart form"
+    >
       <div className="flexStart form_image-container">
         <label htmlFor="poster" className="flexCenter form_image-label">
           {!form.image && "Choose a poster for your project"}
@@ -156,6 +163,6 @@ export default function ProjectForm({ type, session, project }: Props) {
           isSubmitting={isSubmitting}
         />
       </div>
-    </form>
+    </m.form>
   );
 }

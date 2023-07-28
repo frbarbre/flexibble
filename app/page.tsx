@@ -111,7 +111,7 @@ const Home = async ({ searchParams: { category, endcursor } }: Props) => {
 
   const data = (await fetchAllProjects(currentCatagory, endcursor)) as ProjectSearch;
 
-  const projectsToDisplay = data?.projectSearch?.edges || [];
+  const projectsToDisplay = data?.projectSearch?.edges.reverse() || [];
 
   if (projectsToDisplay.length === 0) {
     return (
@@ -130,7 +130,7 @@ const Home = async ({ searchParams: { category, endcursor } }: Props) => {
       <Categories />
 
       <section className="projects-grid">
-        {projectsToDisplay.map(({ node }: { node: ProjectInterface }) => (
+        {projectsToDisplay.map(({ node }: { node: ProjectInterface }, index: number) => (
           <ProjectCard
             key={`${node?.id}`}
             id={node?.id}
@@ -139,6 +139,7 @@ const Home = async ({ searchParams: { category, endcursor } }: Props) => {
             name={node?.createdBy.name}
             avatarUrl={node?.createdBy.avatarUrl}
             userId={node?.createdBy.id}
+            index={index}
           />
         ))}
       </section>

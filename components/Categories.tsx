@@ -22,7 +22,7 @@ export default function Categories() {
           <m.button
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
+            transition={{ delay: index * 0.05 }}
             key={filter}
             type="button"
             onClick={() => handleTags(filter)}
@@ -30,7 +30,7 @@ export default function Categories() {
               category === filter
                 ? "bg-light-white-300 font-medium"
                 : "font-normal"
-            } px-4 py-3 rounded-lg capitalize whitespace-nowrap`}
+            } px-4 py-3 rounded-lg capitalize whitespace-nowrap hover:bg-light-white-400 transition-all mb-4`}
           >
             {filter}
           </m.button>

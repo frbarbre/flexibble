@@ -1,23 +1,46 @@
 "use client";
 
-import { useCallback, useRef, ReactNode, MouseEvent } from "react";
+import {
+  useCallback,
+  useRef,
+  ReactNode,
+  MouseEvent,
+  useState,
+  useEffect,
+} from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { motion as m, AnimatePresence } from "framer-motion";
 
 export default function Modal({ children }: { children: ReactNode }) {
   const overlay = useRef<HTMLDivElement>(null);
   const wrapper = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
+  const duration = 0.3;
+
+  const [active, setActive] = useState(true);
+
   const onDismiss = useCallback(() => {
-    router.push("/");
+    setActive(false);
+    router.refresh();
+    setTimeout(() => {
+      router.back();
+    }, duration * 1000);
   }, [router]);
 
-  const handleClick = useCallback((e : MouseEvent) => {
-    if((e.target === overlay.current) && onDismiss) {
-        onDismiss()
-    }
-  }, [onDismiss, overlay]);
+  useEffect(() => {
+    setActive(true);
+  }, [onDismiss]);
+
+  const handleClick = useCallback(
+    (e: MouseEvent) => {
+      if (e.target === overlay.current && onDismiss) {
+        onDismiss();
+      }
+    },
+    [onDismiss, overlay]
+  );
   return (
     <div ref={overlay} className="modal" onClick={handleClick}>
       <button
@@ -27,9 +50,20 @@ export default function Modal({ children }: { children: ReactNode }) {
       >
         <Image src="/close.svg" width={17} height={17} alt="close"></Image>
       </button>
-      <div ref={wrapper} className="modal_wrapper">
-        {children}
-      </div>
+      <AnimatePresence>
+        {active && (
+          <m.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: duration }}
+            ref={wrapper}
+            className="modal_wrapper"
+          >
+            {children}
+          </m.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

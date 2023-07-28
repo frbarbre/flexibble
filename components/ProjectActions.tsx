@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { deleteProject, fetchToken } from "@/lib/actions";
 import Image from "next/image";
@@ -17,8 +17,8 @@ export default function ProjectActions({ projectId }: { projectId: string }) {
 
     try {
       await deleteProject(projectId, token);
-      router.push("/");
-      router.refresh()
+      router.back();
+      router.refresh();
     } catch (error) {
       console.error(error);
     } finally {
@@ -28,7 +28,10 @@ export default function ProjectActions({ projectId }: { projectId: string }) {
 
   return (
     <>
-      <Link href={`/edit-project/${projectId}`} className="flexCenter edit-action_btn">
+      <Link
+        href={`/edit-project/${projectId}`}
+        className="flexCenter edit-action_btn"
+      >
         <Image src={"/pencile.svg"} width={15} height={15} alt="edit" />
       </Link>
 

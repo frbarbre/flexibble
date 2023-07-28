@@ -17,7 +17,7 @@ export default function ProfileMenu({
 
   return (
     <m.div
-      initial={{ opacity: 0, x: 20 }}
+      initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.2 }}
       className="flexCenter z-10 flex-col relative"
